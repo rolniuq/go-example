@@ -11,4 +11,12 @@ func main() {
 		s = append(s, i)
 	}
 	fmt.Println(s)
+
+	str := "helloworld"
+	split1 := str[5:] // world
+	fmt.Println(split1)
+	split2 := str[0:5] // hello
+	fmt.Println(split2)
+
+	// (start:end]
 }
