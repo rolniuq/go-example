@@ -4,6 +4,8 @@ import (
 	"bufio"
 	"fmt"
 	"net/http"
+
+	httpbuilder "github.com/rolniuq/mypackage/http-builder"
 )
 
 // support http client and server in the net/http package
@@ -27,4 +29,6 @@ func main() {
 	if err := scanner.Err(); err != nil {
 		panic(err)
 	}
+
+	httpbuilder.Sample()
 }
