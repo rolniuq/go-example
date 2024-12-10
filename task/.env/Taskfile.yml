@@ -1,0 +1,11 @@
+version: "3"
+
+env:
+  ENV: testing
+
+dotenv: [".env", "{{.ENV}}/.env"]
+
+tasks:
+  show:
+    cmds:
+      - echo "Server is opening on PORT $PORT and host is $HOST"
