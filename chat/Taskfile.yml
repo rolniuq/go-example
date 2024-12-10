@@ -1,0 +1,20 @@
+version: "3"
+
+tasks:
+  run:
+    cmds:
+      - task: run:server
+      - task: run:client
+    silent: true
+
+  run:server:
+    desc: Run server
+    cmds:
+      - echo "Starting server..."
+      - go run server/server.go
+
+  run:client:
+    desc: Run client
+    cmds:
+      - echo "Starting client..."
+      - go run client/client.go
