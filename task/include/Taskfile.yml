@@ -1,0 +1,13 @@
+version: "3"
+
+includes:
+  # task docs:hello || task docs:say
+  docs: ./document
+
+  # different way to show for docs
+  docs2:
+    taskfile: ./document/Taskfile.yml
+    dir: ./document
+
+  # task docker:build
+  docker: ./DockerTask.yml
