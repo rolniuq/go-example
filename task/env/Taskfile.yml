@@ -1,0 +1,15 @@
+version: "3"
+
+env:
+  SAY: Hello!
+
+tasks:
+  greet:
+    cmds:
+      - echo $GREETING
+    env:
+      GREETING: Hey, there!
+
+  say:
+    cmds:
+      - echo $SAY
