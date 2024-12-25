@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"mutex/sample"
 	"sync"
 )
 
@@ -20,7 +21,7 @@ func (c *Container) inc(name string) {
 	c.counters[name]++
 }
 
-func main() {
+func Mutex() {
 	c := Container{
 		counters: map[string]int{
 			"a": 0,
@@ -45,4 +46,9 @@ func main() {
 
 	wg.Wait()
 	log.Println(c.counters)
+}
+
+func main() {
+	// Mutex()
+	sample.RaceConditionSample()
 }
