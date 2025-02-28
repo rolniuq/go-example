@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package greeter;
+
+option go_package = "../greeter";
+
+// Định nghĩa service Greeter
+service Greeter {
+  // Định nghĩa một RPC unary
+  rpc SayHello (HelloRequest) returns (HelloReply) {}
+}
+
+// Định nghĩa kiểu dữ liệu yêu cầu
+message HelloRequest {
+  string name = 1;
+}
+
+// Định nghĩa kiểu dữ liệu phản hồi
+message HelloReply {
+  string message = 1;
+}
