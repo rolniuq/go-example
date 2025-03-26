@@ -14,6 +14,22 @@ func worker(id int) {
 	fmt.Println("worker", id, "finished")
 }
 
+func workerPointer(id int, wg sync.WaitGroup) {
+	fmt.Printf("worker: memmory address: %p\n", &wg)
+	defer wg.Done()
+}
+
+func PrintWgAddress() {
+	var wg sync.WaitGroup
+	for i := 0; i < 5; i++ {
+		wg.Add(1)
+		go workerPointer(i, wg)
+	}
+
+	wg.Wait()
+	fmt.Println("main: memmory address: %p\n", &wg)
+}
+
 func Doc() {
 	// the wait group is used to wait for all the goroutines launched to finish
 	// if a wait group is explicitly passed into functions, it should be done by pointer
@@ -68,4 +84,5 @@ func main() {
 	Doc()
 	AddOnceTime()
 	AddMultipleTimes()
+	PrintWgAddress()
 }
