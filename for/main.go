@@ -16,11 +16,22 @@ func classic() {
 	}
 }
 
+func modern() {
+	fmt.Println("For loop modern running")
+	for i := range 5 {
+		fmt.Println(i)
+	}
+	fmt.Println("For loop modern done")
+}
+
 func rangeLoop() {
+	fmt.Println("range loop running")
 	// with go version >= 1.22 we can iterate over a range with int
 	for i := range [3]int{} {
 		fmt.Println("range", i)
 	}
+
+	fmt.Println("range loop done")
 }
 
 func withoutCondition() {
@@ -56,4 +67,5 @@ func main() {
 	rangeLoop()
 	withoutCondition()
 	withObj()
+	modern()
 }
