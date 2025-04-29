@@ -1,6 +1,9 @@
 package main
 
-import "go-practice/day1"
+import (
+	"go-practice/day1"
+	"go-practice/day2"
+)
 
 type Daily interface {
 	Exec()
@@ -22,7 +25,8 @@ func (ds *Dailies) Register(d Daily) *Dailies {
 
 func main() {
 	ds := NewDailies().
-		Register(&day1.Day1{})
+		Register(&day1.Day1{}).
+		Register(&day2.Day2{})
 
 	for _, d := range ds.ds {
 		d.Exec()
