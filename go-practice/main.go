@@ -3,6 +3,7 @@ package main
 import (
 	"go-practice/day1"
 	"go-practice/day2"
+	"go-practice/day3"
 )
 
 type Daily interface {
@@ -26,7 +27,8 @@ func (ds *Dailies) Register(d Daily) *Dailies {
 func main() {
 	ds := NewDailies().
 		Register(&day1.Day1{}).
-		Register(&day2.Day2{})
+		Register(&day2.Day2{}).
+		Register(&day3.Day3{})
 
 	for _, d := range ds.ds {
 		d.Exec()
