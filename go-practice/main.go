@@ -4,7 +4,8 @@ import (
 	//"go-practice/day1"
 	//"go-practice/day2"
 	//"go-practice/day3"
-	"go-practice/day4"
+	//"go-practice/day4"
+	"go-practice/day5"
 )
 
 type Daily interface {
@@ -30,7 +31,8 @@ func main() {
 		//Register(&day1.Day1{}).
 		//Register(&day2.Day2{}).
 		//Register(&day3.Day3{}).
-		Register(&day4.Day4{})
+		//Register(&day4.Day4{}).
+		Register(&day5.Day5{})
 
 	for _, d := range ds.ds {
 		d.Exec()
