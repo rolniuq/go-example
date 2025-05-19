@@ -1,7 +1,7 @@
 package main
 
 import (
-	"go-practice/day9"
+	"go-practice/day10"
 )
 
 //"go-practice/day1"
@@ -37,7 +37,8 @@ func main() {
 		//Register(&day5.Day5{}).
 		// Register(&day6.Day6{}).
 		//Register(&day7.Day7{}).
-		Register(&day9.Day9{})
+		//Register(&day9.Day9{}).
+		Register(&day10.Day10{})
 
 	for _, d := range ds.ds {
 		d.Exec()
