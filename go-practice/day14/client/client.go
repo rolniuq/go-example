@@ -8,15 +8,19 @@ import (
 
 	"github.com/google/uuid"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
 	"google.golang.org/grpc/metadata"
 )
 
 type Client struct{}
 
 func (c *Client) Exec() {
+	md := metadata.Pairs("trace-id", uuid.New().String())
+	ctx := metadata.NewOutgoingContext(context.Background(), md)
+
 	conn, err := grpc.NewClient(
 		"127.0.0.1:50051",
-		grpc.WithInsecure(),
+		grpc.WithTransportCredentials(insecure.NewCredentials()),
 		grpc.WithUnaryInterceptor(interceptor.TraceClientInterceptor()),
 	)
 	if err != nil {
@@ -25,10 +29,6 @@ func (c *Client) Exec() {
 	defer conn.Close()
 
 	client := greeter.NewGreeterClient(conn)
-
-	md := metadata.Pairs("trace-id", uuid.New().String())
-	ctx := metadata.NewOutgoingContext(context.Background(), md)
-
 	response, err := client.SayHello(ctx, &greeter.HelloRequest{
 		Name: "severus",
 	})

@@ -41,13 +41,13 @@ func (s *Server) Exec() {
 	}
 	defer lis.Close()
 
-	grpc := grpc.NewServer(
+	sv := grpc.NewServer(
 		grpc.UnaryInterceptor(interceptor.TraceServerInterceptor()),
 	)
-	greeter.RegisterGreeterServer(grpc, &server{})
+	greeter.RegisterGreeterServer(sv, &server{})
 
 	fmt.Println("start server on port 50051")
-	if err := grpc.Serve(lis); err != nil {
+	if err := sv.Serve(lis); err != nil {
 		panic(err)
 	}
 }
