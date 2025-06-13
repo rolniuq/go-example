@@ -19,6 +19,7 @@ func (s *Server) Exec() {
 	if err != nil {
 		panic(err)
 	}
+	defer lis.Close()
 
 	grpc := grpc.NewServer()
 	greeter.RegisterGreeterServer(grpc, &server{})
