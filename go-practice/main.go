@@ -1,14 +1,8 @@
 package main
 
 import (
-	"go-practice/day13"
+	"go-practice/day14"
 )
-
-//"go-practice/day1"
-//"go-practice/day2"
-//"go-practice/day3"
-//"go-practice/day4"
-//"go-practice/day5"
 
 type Daily interface {
 	Exec()
@@ -35,12 +29,13 @@ func main() {
 		//Register(&day3.Day3{}).
 		//Register(&day4.Day4{}).
 		//Register(&day5.Day5{}).
-		// Register(&day6.Day6{}).
+		//Register(&day6.Day6{}).
 		//Register(&day7.Day7{}).
 		//Register(&day9.Day9{}).
 		//Register(&day10.Day10{}).
 		//Register(&day11.Day11{}).
-		Register(&day13.Day13{})
+		//Register(&day13.Day13{}).
+		Register(&day14.Day14{})
 
 	for _, d := range ds.ds {
 		d.Exec()
