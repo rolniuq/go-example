@@ -1,15 +1,46 @@
 package storage
 
 import (
+	"fmt"
+	"todo-cli/configs"
 	"todo-cli/pkgs/task"
+	"todo-cli/tools/converter"
+	"todo-cli/tools/creator"
+	"todo-cli/tools/reader"
+	"todo-cli/tools/writer"
 )
 
 type Storage struct {
-	data []task.Task
+	data   []task.Task
+	reader *reader.Reader
+	writer *writer.Writer
 }
 
-func NewStorage[T task.Task]() *Storage {
-	return &Storage{}
+func NewStorage[T task.Task](config *configs.Config) *Storage {
+	if err := creator.CreateDir(config.StoragePath); err != nil {
+		fmt.Println("error when create storage path", err)
+	}
+
+	storage := &Storage{
+		reader: reader.NewReader(config.ReaderPath),
+		writer: writer.NewWriter(config.WriterPath),
+	}
+
+	data, err := storage.reader.Read()
+	if err != nil {
+		fmt.Println("error when read storage path", err)
+	}
+	if data != nil {
+		tasks, err := converter.ByteToType[[]task.Task](data)
+		if err != nil {
+			fmt.Println("error when convert string to type", err)
+		}
+		if tasks != nil {
+			storage.data = *tasks
+		}
+	}
+
+	return storage
 }
 
 func (s *Storage) Add(value task.Task) {
@@ -35,6 +66,27 @@ func (s *Storage) Remove(title string) {
 			return
 		}
 	}
+}
+
+func (s *Storage) Save() error {
+	if s == nil {
+		return nil
+	}
+
+	for i := range s.data {
+		s.data[i].ID = i + 1
+	}
+
+	data, err := converter.TypeToString(s.data)
+	if err != nil {
+		return err
+	}
+
+	if err = s.writer.Write(data); err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func (s *Storage) Edit(value task.Task) {
