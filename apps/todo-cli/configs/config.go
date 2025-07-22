@@ -7,6 +7,7 @@ import (
 )
 
 type Config struct {
+	AppName     string
 	StoragePath string
 	ReaderPath  string
 	WriterPath  string
@@ -21,6 +22,7 @@ func NewConfig() *Config {
 }
 
 func (c *Config) Load() (*Config, error) {
+	c.AppName = os.Getenv("APP_NAME")
 	c.StoragePath = os.Getenv("STORAGE_PATH")
 	c.ReaderPath = os.Getenv("READER_PATH")
 	c.WriterPath = os.Getenv("WRITER_PATH")

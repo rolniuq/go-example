@@ -3,6 +3,7 @@ package ui
 import (
 	"todo-cli/configs"
 	"todo-cli/pkgs/storage"
+	"todo-cli/ui/windows"
 
 	"fyne.io/fyne/v2/app"
 	"fyne.io/fyne/v2/container"
@@ -10,29 +11,31 @@ import (
 )
 
 type App struct {
+	config  *configs.Config
 	storage *storage.Storage
 }
 
 func NewApp(config *configs.Config) *App {
 	storage := storage.NewStorage(config)
 	return &App{
+		config:  config,
 		storage: storage,
 	}
 }
 
 func (a *App) Start() error {
 	ui := app.New()
+	wd := windows.NewWindows(ui, a.config)
 
-	w := ui.NewWindow("Todo Cli")
 	hello := widget.NewLabel("Hello Fyne!")
-	w.SetContent(container.NewVBox(
+	wd.SetContent(container.NewVBox(
 		hello,
 		widget.NewButton("Hi!", func() {
 			hello.SetText("Welcome :)")
 		}),
 	))
 
-	w.ShowAndRun()
+	wd.ShowAndRun()
 
 	return nil
 }
