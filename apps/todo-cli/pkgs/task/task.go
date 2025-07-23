@@ -36,3 +36,11 @@ func (t *Task) MarkCompleted() {
 func (t *Task) MarkIncomplete() {
 	t.Completed = false
 }
+
+func (t *Task) DoneString() string {
+	if t.Completed {
+		return "Done"
+	}
+
+	return "Not Done"
+}

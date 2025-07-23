@@ -29,12 +29,12 @@ func NewApp(config *configs.Config) *App {
 
 func (a *App) Start() error {
 	t := flag.String("task", "", "The task description")
-	ac := flag.String("action", "add", "The action to perform")
+	ac := flag.String("action", "", "The action to perform")
 	flag.Parse()
 
-	if err := actor.NewActor().Validate(actor.Action(*ac)); err != nil {
-		return err
-	}
+	// if err := actor.NewActor().Validate(actor.Action(*ac)); err != nil {
+	// 	return err
+	// }
 
 	storager := storage.NewStorage(a.config)
 
@@ -68,6 +68,7 @@ func (a *App) Start() error {
 		storager.Add(*task)
 	default:
 		fmt.Println("Invalid action")
+		return nil
 	}
 
 	if err := storager.Save(); err != nil {
