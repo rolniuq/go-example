@@ -1,6 +1,9 @@
 package main
 
-import "embed"
+import (
+	"embed"
+	linkname "myembed/link_name"
+)
 
 // //go:embed is a compiler directive that allows program include arbitrary files and folders in the Go binary at build time
 
@@ -23,4 +26,7 @@ func main() {
 
 	content2, _ := folder.ReadFile("folder/file2.hash")
 	print(string(content2))
+
+	sec, nsec := linkname.RuntimeNow()
+	print("runtime now", sec, nsec)
 }
