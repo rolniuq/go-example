@@ -81,6 +81,44 @@ func looper[T any](a []T) iter.Seq[T] {
 	}
 }
 
+func MapIter(m map[string]int) iter.Seq2[string, int] {
+	return func(yield func(string, int) bool) {
+		for k, v := range m {
+			if !yield(k, v) {
+				return
+			}
+		}
+	}
+}
+
+func PullIter[T any](seq iter.Seq[T], f func(T)) {
+	next, stop := iter.Pull(seq)
+	defer stop()
+
+	for {
+		v, ok := next()
+		if !ok {
+			break
+		}
+
+		f(v)
+	}
+}
+
+func Pull2Iter[T1, T2 any](seq iter.Seq2[T1, T2], f func(T1, T2)) {
+	next, stop := iter.Pull2(seq)
+	defer stop()
+
+	for {
+		v1, v2, ok := next()
+		if !ok {
+			break
+		}
+
+		f(v1, v2)
+	}
+}
+
 func main() {
 	c := NewCountry([]string{"English", "Spanish", "French"})
 	for l := range c.PrintLanguages() {
@@ -120,4 +158,16 @@ func main() {
 	for v := range looper(people) {
 		fmt.Println(v)
 	}
+
+	for k, v := range MapIter(map[string]int{"a": 1, "b": 2, "c": 3}) {
+		fmt.Println(k, v)
+	}
+
+	PullIter(looper([]string{"a", "b", "c"}), func(v string) {
+		fmt.Println(v)
+	})
+
+	Pull2Iter(MapIter(map[string]int{"a": 1, "b": 2, "c": 3}), func(v1 string, v2 int) {
+		fmt.Println(v1, v2)
+	})
 }
