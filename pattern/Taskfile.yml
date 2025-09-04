@@ -1,0 +1,34 @@
+version: '3'
+
+tasks:
+  strategy:
+    cmds:
+      - go run ./strategy/*.go
+
+  iterator:
+    cmds:
+      - go run ./iterator/*.go
+
+  singleton:
+    cmds:
+      - go run ./singleton/*.go
+
+  factory:
+    cmds:
+      - go run ./factory/*.go
+
+  builder:
+    cmds:
+      - go run ./builder/*.go
+
+  observer:
+    cmds:
+      - go run ./observer/*.go
+
+  adapter:
+    cmds:
+      - go run ./adapter/*.go
+
+  facade:
+    cmds:
+      - go run ./facade/*.go
