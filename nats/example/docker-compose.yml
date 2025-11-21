@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  nats:
+    image: nats:latest
+    ports:
+      - "4222:4222"
+      - "8222:8222"
+
+  app:
+    build: .
+    depends_on:
+      - nats
+    environment:
+      - NATS_URL=nats://nats:4222
