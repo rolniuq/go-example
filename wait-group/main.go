@@ -80,9 +80,22 @@ func AddMultipleTimes() {
 	wg.Wait()
 }
 
+func Go125() {
+	var wg sync.WaitGroup
+	for i := range 10 {
+		wg.Go(func() {
+			fmt.Printf("Do %d\n", i)
+			time.Sleep(500 * time.Millisecond)
+		})
+	}
+
+	wg.Wait()
+}
+
 func main() {
-	Doc()
-	AddOnceTime()
-	AddMultipleTimes()
-	PrintWgAddress()
+	// Doc()
+	// AddOnceTime()
+	// AddMultipleTimes()
+	// PrintWgAddress()
+	Go125()
 }
